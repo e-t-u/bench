@@ -2,6 +2,7 @@
 import os
 import sys
 import math
+import subprocess
 import argparse
 import requests
 import webbrowser
@@ -118,7 +119,7 @@ def fetch_benches(lat_min, lon_min, lat_max, lon_max):
         except Exception as e:
             print(f"Error connecting to {url}: {e}. Trying next mirror...")
             
-    print("Error: All public Overpass API mirrors failed or timed out.")
+    print("Error: Can not access any Overpass API servers (all public mirrors failed or timed out). Please check your internet connection and try again.")
     sys.exit(1)
 
 def make_popup_content(element):
@@ -327,6 +328,35 @@ def create_map(lat, lon, display_name, benches, radius, size_km, output_path):
         print(f"Error saving map: {e}")
         sys.exit(1)
 
+def export_map(html_path, output_path, export_format):
+    """
+    Call the Node.js Puppeteer helper script to export the generated map.
+    """
+    print(f"Exporting map to {export_format.upper()} format using Puppeteer...")
+    node_path = "/usr/local/lib/node_modules"
+    env = os.environ.copy()
+    env["NODE_PATH"] = node_path
+    
+    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export_map.js")
+    
+    # Try calling node with the export script
+    try:
+        result = subprocess.run(
+            ["node", script_path, html_path, output_path, export_format],
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=90
+        )
+        if result.returncode == 0:
+            print(f"Successfully exported to: {os.path.abspath(output_path)}")
+        else:
+            print(f"Error during export: {result.stderr or result.stdout}")
+    except FileNotFoundError:
+        print("Error: 'node' executable not found. Please install Node.js and Puppeteer to use the PDF/SVG export options.")
+    except Exception as e:
+        print(f"Error exporting map: {e}")
+
 def main():
     parser = argparse.ArgumentParser(
         description="Bench: Generate interactive maps marking bench safety zones for walkers."
@@ -359,6 +389,16 @@ def main():
         "-p", "--open",
         action="store_true",
         help="Open the generated map in your web browser immediately"
+    )
+    parser.add_argument(
+        "--pdf",
+        type=str,
+        help="Export the generated map to a PDF file (e.g. map.pdf)"
+    )
+    parser.add_argument(
+        "--svg",
+        type=str,
+        help="Export the map vector overlays (safe zones, boundaries, markers) to an SVG file (e.g. map.svg)"
     )
     
     args = parser.parse_args()
@@ -400,6 +440,12 @@ def main():
     # Generate Map
     create_map(lat, lon, display_name, benches, args.radius, args.size, args.output)
     
+    # Export to PDF/SVG if requested
+    if args.pdf:
+        export_map(args.output, args.pdf, "pdf")
+    if args.svg:
+        export_map(args.output, args.svg, "svg")
+        
     # Open browser
     if args.open:
         abs_path = os.path.abspath(args.output)
