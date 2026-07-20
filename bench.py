@@ -273,11 +273,12 @@ def create_map(lat, lon, display_name, benches, radius, size_km, output_path):
         popup_html = make_popup_content(b)
         folium.CircleMarker(
             location=[b_lat, b_lon],
-            radius=5,
-            color="#2980b9",
+            radius=7,
+            color="#1b4f72",
             fill=True,
             fill_color="#3498db",
             fill_opacity=0.9,
+            weight=2,
             popup=folium.Popup(popup_html, max_width=250),
             tooltip="Click for bench details"
         ).add_to(fg_benches)
@@ -375,6 +376,27 @@ def main():
     # Fetch OSM data
     benches = fetch_benches(lat_min, lon_min, lat_max, lon_max)
     
+    if not benches:
+        print("\n========================================================")
+        print("WARNING: No benches were found in this area on OpenStreetMap!")
+        print("This means the OSM database contains no elements tagged as 'amenity=bench'")
+        print("inside the requested coordinates.")
+        print("Suggestions:")
+        print("  1. Increase the search area size with '-s' or '--size' (e.g. -s 2.0 or -s 5.0)")
+        print("  2. Try a different, more populated urban location (e.g., Helsinki, Paris, New York)")
+        print("========================================================\n")
+    else:
+        # Print a short debug list of the first 3 benches coordinates
+        print(f"Sample of retrieved benches:")
+        for b in benches[:3]:
+            b_lat = b.get('lat') or b.get('center', {}).get('lat')
+            b_lon = b.get('lon') or b.get('center', {}).get('lon')
+            tags = b.get('tags', {})
+            desc = tags.get('material', 'unknown material')
+            print(f"  - Bench #{b.get('id')}: lat={b_lat}, lon={b_lon} ({desc})")
+        if len(benches) > 3:
+            print(f"  - ... and {len(benches) - 3} more benches.")
+            
     # Generate Map
     create_map(lat, lon, display_name, benches, args.radius, args.size, args.output)
     
