@@ -33,6 +33,9 @@ const format = argv[2].toLowerCase();
     // Extra wait to guarantee Leaflet rendering is complete
     await new Promise(resolve => setTimeout(resolve, 2000));
     
+    // Hide Leaflet control containers (zoom, search, locate, layer toggle, measure, minimap)
+    await page.addStyleTag({ content: '.leaflet-control-container { display: none !important; }' });
+    
     if (format === 'pdf') {
       console.log(`Generating PDF: ${outputFile}`);
       await page.pdf({

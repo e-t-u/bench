@@ -105,21 +105,31 @@ def fetch_benches(lat_min, lon_min, lat_max, lon_max):
         'User-Agent': 'bench-map-maker/1.0 (contact: github.com/e-t-u/bench)'
     }
     
-    for url in endpoints:
-        print(f"Trying Overpass server: {url}...")
-        try:
-            response = requests.post(url, headers=headers, data={'data': overpass_query}, timeout=30)
-            if response.status_code == 200:
-                data = response.json()
-                elements = data.get('elements', [])
-                print(f"Successfully retrieved {len(elements)} benches.")
-                return elements
-            else:
-                print(f"Server returned status code {response.status_code}. Trying next mirror...")
-        except Exception as e:
-            print(f"Error connecting to {url}: {e}. Trying next mirror...")
+    import time
+    
+    max_rounds = 3
+    for round_idx in range(1, max_rounds + 1):
+        if round_idx > 1:
+            print(f"\nStarting round-robin retry round {round_idx} of {max_rounds}...")
+        for url in endpoints:
+            print(f"Trying Overpass server: {url}...")
+            try:
+                # Use a longer timeout of 60 seconds
+                response = requests.post(url, headers=headers, data={'data': overpass_query}, timeout=60)
+                if response.status_code == 200:
+                    data = response.json()
+                    elements = data.get('elements', [])
+                    print(f"Successfully retrieved {len(elements)} benches.")
+                    return elements
+                else:
+                    print(f"Server returned status code {response.status_code}. Trying next mirror...")
+            except Exception as e:
+                print(f"Error connecting to {url}: {e}. Trying next mirror...")
+        if round_idx < max_rounds:
+            print("All mirrors failed in this round. Waiting 3 seconds before next round-robin loop...")
+            time.sleep(3)
             
-    print("Error: Can not access any Overpass API servers (all public mirrors failed or timed out). Please check your internet connection and try again.")
+    print("\nError: Can not access any Overpass API servers (all public mirrors failed or timed out after 3 rounds of retries). Please check your internet connection and try again.")
     sys.exit(1)
 
 def make_popup_content(element):
