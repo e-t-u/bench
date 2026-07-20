@@ -61,13 +61,19 @@ const format = argv[2].toLowerCase();
             svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
           }
           
+          // Set SVG dimensions and viewBox to match the visible map container (1200x1200)
+          svgEl.setAttribute('width', '1200');
+          svgEl.setAttribute('height', '1200');
+          svgEl.setAttribute('viewBox', '0 0 1200 1200');
+          svgEl.removeAttribute('style');
+          
           // Create an image element for the background
           const bgImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
           bgImg.setAttribute('href', 'data:image/png;base64,' + bgBase64);
           bgImg.setAttribute('x', '0');
           bgImg.setAttribute('y', '0');
-          bgImg.setAttribute('width', svgEl.getAttribute('width') || '1200');
-          bgImg.setAttribute('height', svgEl.getAttribute('height') || '1200');
+          bgImg.setAttribute('width', '1200');
+          bgImg.setAttribute('height', '1200');
           
           // Insert the background screenshot as the first element in the SVG
           svgEl.insertBefore(bgImg, svgEl.firstChild);

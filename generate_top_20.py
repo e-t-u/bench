@@ -20,7 +20,7 @@ def clean_name(name):
 
 def main():
     # Create the output directory if it doesn't exist
-    output_dir = "maps"
+    output_dir = "example-maps"
     os.makedirs(output_dir, exist_ok=True)
     
     print("=" * 60)
