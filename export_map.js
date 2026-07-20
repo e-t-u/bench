@@ -45,20 +45,36 @@ const format = argv[2].toLowerCase();
       console.log('PDF export completed successfully.');
     } else if (format === 'svg') {
       console.log(`Generating SVG: ${outputFile}`);
-      // Find the SVG overlays element
-      const svgContent = await page.evaluate(() => {
+      
+      // Capture a screenshot of the map to use as base64 background
+      const screenshotBase64 = await page.screenshot({ encoding: 'base64' });
+      
+      // Find the SVG overlays element and inject the background screenshot
+      const svgContent = await page.evaluate((bgBase64) => {
         const svgEl = document.querySelector('.leaflet-overlay-pane svg');
         if (svgEl) {
           // Add XML namespace attributes if missing
           if (!svgEl.getAttribute('xmlns')) {
             svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
           }
+          
+          // Create an image element for the background
+          const bgImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+          bgImg.setAttribute('href', 'data:image/png;base64,' + bgBase64);
+          bgImg.setAttribute('x', '0');
+          bgImg.setAttribute('y', '0');
+          bgImg.setAttribute('width', svgEl.getAttribute('width') || '1200');
+          bgImg.setAttribute('height', svgEl.getAttribute('height') || '1200');
+          
+          // Insert the background screenshot as the first element in the SVG
+          svgEl.insertBefore(bgImg, svgEl.firstChild);
+          
           return svgEl.outerHTML;
         }
-        // Fallback to any SVG
+        // Fallback to any SVG (without background injection)
         const fallbackSvg = document.querySelector('svg');
         return fallbackSvg ? fallbackSvg.outerHTML : null;
-      });
+      }, screenshotBase64);
       
       if (!svgContent) {
         console.error('Error: Leaflet SVG overlay pane not found.');

@@ -208,9 +208,9 @@ def create_map(lat, lon, display_name, benches, radius, size_km, output_path):
         name="OpenStreetMap (Default)"
     )
     
-    # Add other basemaps
-    folium.TileLayer("Cartodb Positron", name="CartoDB Positron (Clean)").add_to(m)
-    folium.TileLayer("Cartodb Dark Matter", name="CartoDB Dark Matter (Dark)").add_to(m)
+    # Add other basemaps (show=False ensures they are not active on startup)
+    folium.TileLayer("Cartodb Positron", name="CartoDB Positron (Clean)", show=False).add_to(m)
+    folium.TileLayer("Cartodb Dark Matter", name="CartoDB Dark Matter (Dark)", show=False).add_to(m)
     
     # Add bounding box representation
     boundary_points = [

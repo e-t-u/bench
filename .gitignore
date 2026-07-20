@@ -9,3 +9,5 @@ env/
 test_map.html
 *.html
 !example_map.html
+*.pdf
+*.svg
