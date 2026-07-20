@@ -200,16 +200,16 @@ def create_map(lat, lon, display_name, benches, radius, size_km, output_path):
     lat_min, lon_min, lat_max, lon_max = get_bbox(lat, lon, size_km)
     
     # Create map centered at search location
-    # We add CartoDB Positron as standard tile and others as options
+    # We use OpenStreetMap as default tile and others as options
     m = folium.Map(
         location=[lat, lon],
         zoom_start=15,
-        tiles="CartoDB Positron",
-        name="CartoDB Positron (Clean)"
+        tiles="OpenStreetMap",
+        name="OpenStreetMap (Default)"
     )
     
     # Add other basemaps
-    folium.TileLayer("OpenStreetMap", name="OpenStreetMap (Detailed)").add_to(m)
+    folium.TileLayer("Cartodb Positron", name="CartoDB Positron (Clean)").add_to(m)
     folium.TileLayer("Cartodb Dark Matter", name="CartoDB Dark Matter (Dark)").add_to(m)
     
     # Add bounding box representation
