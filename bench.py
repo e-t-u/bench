@@ -83,12 +83,12 @@ def fetch_benches(lat_min, lon_min, lat_max, lon_max):
     """
     print("Fetching benches data from OpenStreetMap (Overpass API)...")
     
-    # List of public Overpass API endpoints to try in sequence
+    # List of public global Overpass API endpoints to try in sequence
     endpoints = [
         "https://overpass-api.de/api/interpreter",
-        "https://overpass.kumi.systems/api/interpreter",
-        "https://overpass.osm.ch/api/interpreter",
-        "https://overpass.nchc.org.tw/api/interpreter"
+        "https://lz4.overpass-api.de/api/interpreter",
+        "https://z.overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter"
     ]
     
     overpass_query = f"""
