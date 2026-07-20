@@ -11,3 +11,5 @@ test_map.html
 !example_map.html
 *.pdf
 *.svg
+!example-maps/
+!example-maps/**

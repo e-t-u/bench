@@ -1,0 +1,3139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0b1f85c18ca84b6731101be05ab3df1a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+    <div id='maplegend' class='maplegend' 
+        style='position: fixed; z-index:9999; border:1px solid #bdc3c7; background-color:rgba(255, 255, 255, 0.9);
+        border-radius:8px; padding: 12px; font-size:13px; right: 10px; bottom: 20px; font-family: sans-serif;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15); max-width: 250px;'>
+    <div style='font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;'>Map Legend</div>
+    <div style='display: flex; flex-direction: column; gap: 6px;'>
+      <div style='display: flex; align-items: center;'>
+        <span style='background:#2ecc71; opacity:0.4; border: 1.5px solid #27ae60; display:inline-block; width:16px; height:16px; margin-right:8px; border-radius:3px;'></span>
+        <span style='color: #34495e;'>Safe zone (< 150.0m to bench)</span>
+      </div>
+      <div style='display: flex; align-items: center;'>
+        <span style='background:#3498db; border: 1.5px solid #2980b9; border-radius:50%; display:inline-block; width:12px; height:12px; margin-right:10px; margin-left: 2px;'></span>
+        <span style='color: #34495e;'>Bench location</span>
+      </div>
+      <div style='display: flex; align-items: center;'>
+        <span style='background:#e74c3c; border: 1.5px solid #c0392b; border-radius:50%; display:inline-block; width:12px; height:12px; margin-right:10px; margin-left: 2px;'></span>
+        <span style='color: #34495e;'>Search Center</span>
+      </div>
+      <div style='display: flex; align-items: center;'>
+        <span style='border: 2px dashed #95a5a6; display:inline-block; width:16px; height:0px; margin-right:8px;'></span>
+        <span style='color: #34495e;'>Search Area Boundary</span>
+      </div>
+    </div>
+    <div style='font-size: 10px; color: #7f8c8d; margin-top: 10px; border-top: 1px solid #ecf0f1; padding-top: 4px;'>
+      Data: OpenStreetMap contributors
+    </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_0b1f85c18ca84b6731101be05ab3df1a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0b1f85c18ca84b6731101be05ab3df1a = L.map(
+                "map_0b1f85c18ca84b6731101be05ab3df1a",
+                {
+                    center: [66.5025537, 25.7303912],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": false,
+  "name": "OpenStreetMap (Default)",
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_3beb474d0934cae1d5b3b4507cf8b602 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_3beb474d0934cae1d5b3b4507cf8b602.addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+        
+    
+            var tile_layer_08297d8f67a5d228dcc45c331a945b80 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_34aa4e9aec91e19d161443d3bee986ba = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var poly_line_8e9f1233886d36b79c6e5a2e0f5937b3 = L.polyline(
+                [[66.48458729009327, 25.685329648358195], [66.52052010990674, 25.685329648358195], [66.52052010990674, 25.775452751641804], [66.48458729009327, 25.775452751641804], [66.48458729009327, 25.685329648358195]],
+                {"bubblingMouseEvents": true, "color": "#7f8c8d", "dashArray": "6, 6", "dashOffset": null, "fill": false, "fillColor": "#7f8c8d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+        
+    
+        var popup_db477726d527837faee009571dc107dd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e3eae40a9aa4474e225b9be6e668ea93 = $(`<div id="html_e3eae40a9aa4474e225b9be6e668ea93" style="width: 100.0%; height: 100.0%;">Search area boundary: 4.0km x 4.0km</div>`)[0];
+                popup_db477726d527837faee009571dc107dd.setContent(html_e3eae40a9aa4474e225b9be6e668ea93);
+            
+        
+
+        poly_line_8e9f1233886d36b79c6e5a2e0f5937b3.bindPopup(popup_db477726d527837faee009571dc107dd)
+        ;
+
+        
+    
+    
+            poly_line_8e9f1233886d36b79c6e5a2e0f5937b3.bindTooltip(
+                `<div>
+                     Search Area Boundary
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var feature_group_7bab9a8a321c5f6bed3cb763375a5eee = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_3ed24a6539d6b2063d98bd8e4e57b152 = L.circle(
+                [66.5021657, 25.7384392],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_3ed24a6539d6b2063d98bd8e4e57b152.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_85a483832c1716086f92c5a572f13dc8 = L.circle(
+                [66.5029614, 25.7382681],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_85a483832c1716086f92c5a572f13dc8.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ecc9cc616da3644d6152253294fc76d4 = L.circle(
+                [66.5021864, 25.7384587],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_ecc9cc616da3644d6152253294fc76d4.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_f6f4bcfd4a1fc94989a961cfbf3939fe = L.circle(
+                [66.5029535, 25.7382058],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_f6f4bcfd4a1fc94989a961cfbf3939fe.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_c1ec3b6648bd53e0fa075f19f12c1b6f = L.circle(
+                [66.502495, 25.738732],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_c1ec3b6648bd53e0fa075f19f12c1b6f.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_feba27a52ed16406b87304e5b49674f2 = L.circle(
+                [66.5025137, 25.7387507],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_feba27a52ed16406b87304e5b49674f2.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_fb53ca70b464a4ba99f488afec4955d8 = L.circle(
+                [66.5029146, 25.7391127],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_fb53ca70b464a4ba99f488afec4955d8.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_668ccda78a47826940176ee908110a25 = L.circle(
+                [66.5029338, 25.7391309],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_668ccda78a47826940176ee908110a25.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_d1f5f8eaec7b5f145e256d16a7686a4c = L.circle(
+                [66.5009445, 25.7373556],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_d1f5f8eaec7b5f145e256d16a7686a4c.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ed7f2ab0ba110e936c981e846fa5add2 = L.circle(
+                [66.5006416, 25.7371105],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_ed7f2ab0ba110e936c981e846fa5add2.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_62901850de3dd9106ba7040da0bf08c6 = L.circle(
+                [66.5009665, 25.7373753],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_62901850de3dd9106ba7040da0bf08c6.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_deacdeced2bf6c656192cb45d78715af = L.circle(
+                [66.5006216, 25.7370935],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_deacdeced2bf6c656192cb45d78715af.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_998a6d47b80e661d046f5731c7e6bd29 = L.circle(
+                [66.4998069, 25.7364373],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_998a6d47b80e661d046f5731c7e6bd29.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_6cc0d1f59fb8a1bb08cd0211ae6b75cc = L.circle(
+                [66.4998292, 25.7364564],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_6cc0d1f59fb8a1bb08cd0211ae6b75cc.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9b20158d9fda3d3501c3e1d5be089cee = L.circle(
+                [66.5001348, 25.7439264],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_9b20158d9fda3d3501c3e1d5be089cee.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7af6e16c759e814c55bfb37eee95bcbc = L.circle(
+                [66.5005638, 25.7440896],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_7af6e16c759e814c55bfb37eee95bcbc.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_09c6246943b57d5c7f59589e9a1d4b7c = L.circle(
+                [66.4916369, 25.7500573],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_09c6246943b57d5c7f59589e9a1d4b7c.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_376560547e761f115c51743fbc4e00a7 = L.circle(
+                [66.4916337, 25.7500037],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_376560547e761f115c51743fbc4e00a7.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7153e5bf92252b089844aa5204f56535 = L.circle(
+                [66.5173069, 25.7346092],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_7153e5bf92252b089844aa5204f56535.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_5b46bd248edff3bf7c42674b7735d042 = L.circle(
+                [66.4994387, 25.7361527],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_5b46bd248edff3bf7c42674b7735d042.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_911be5457a0510fb91cd53986a752e40 = L.circle(
+                [66.4990787, 25.7358779],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_911be5457a0510fb91cd53986a752e40.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_20c31e2c9262e11d364febfb8489c63c = L.circle(
+                [66.4990546, 25.7358602],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_20c31e2c9262e11d364febfb8489c63c.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9d9b425e7cfb54c0748746663972f2b4 = L.circle(
+                [66.4994619, 25.7361656],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_9d9b425e7cfb54c0748746663972f2b4.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_370dbf63d873c676ebf73b24ac872e44 = L.circle(
+                [66.4976872, 25.7347446],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_370dbf63d873c676ebf73b24ac872e44.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_fbd47984a41c4ebae7052841b13cea50 = L.circle(
+                [66.498663, 25.7355601],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_fbd47984a41c4ebae7052841b13cea50.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9a2a956253885d3d880989e9e97dec3d = L.circle(
+                [66.4986318, 25.7355371],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_9a2a956253885d3d880989e9e97dec3d.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_841256acbeb886995fdd9a010251ed45 = L.circle(
+                [66.4983313, 25.7352849],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_841256acbeb886995fdd9a010251ed45.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_1c8831800f92f79a69678956d90632bc = L.circle(
+                [66.4983044, 25.7352641],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_1c8831800f92f79a69678956d90632bc.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7bf715136b5cc2e08558caae7c3071cd = L.circle(
+                [66.4970416, 25.7342454],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_7bf715136b5cc2e08558caae7c3071cd.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_88d601d4fa56cb10d7b59c4263951795 = L.circle(
+                [66.4977122, 25.7347575],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_88d601d4fa56cb10d7b59c4263951795.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_79e7f868c5796374a5d589f2fa94fb11 = L.circle(
+                [66.4973669, 25.7345044],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_79e7f868c5796374a5d589f2fa94fb11.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_0d3291e82216f4dfd7a1406c69468695 = L.circle(
+                [66.4970123, 25.734226],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_0d3291e82216f4dfd7a1406c69468695.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_910d5f2cf6148470d8a42581d1d8d3f1 = L.circle(
+                [66.4973906, 25.7345183],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_910d5f2cf6148470d8a42581d1d8d3f1.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8b70de5d6f4f8053a4c338675696ea29 = L.circle(
+                [66.5022136, 25.7666348],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_8b70de5d6f4f8053a4c338675696ea29.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7b4f357961b7a065aed62f792592ca1b = L.circle(
+                [66.5046633, 25.7218928],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_7b4f357961b7a065aed62f792592ca1b.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_682439a3c1b62d9afe29f4cbb0bf51e6 = L.circle(
+                [66.5118633, 25.7207386],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_682439a3c1b62d9afe29f4cbb0bf51e6.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8aa7f21404a14d3dbea5c4f10cf5317e = L.circle(
+                [66.5088677, 25.7306304],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_8aa7f21404a14d3dbea5c4f10cf5317e.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_4b2c9492ac7a14a967d45063dae4dc69 = L.circle(
+                [66.5089307, 25.7293928],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_4b2c9492ac7a14a967d45063dae4dc69.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_937b830413eaa6d0643c9f1b1199b4fb = L.circle(
+                [66.5092779, 25.7265471],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_937b830413eaa6d0643c9f1b1199b4fb.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_a12876c059b21ac9f13a32915a3083a6 = L.circle(
+                [66.5025956, 25.7559858],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_a12876c059b21ac9f13a32915a3083a6.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_457d410402a57ba717e7b7d225328780 = L.circle(
+                [66.5014992, 25.7517561],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_457d410402a57ba717e7b7d225328780.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9794d8378166e7550a24bec82c52d373 = L.circle(
+                [66.5022602, 25.7598681],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_9794d8378166e7550a24bec82c52d373.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_65748d0cc70a045ef8c12de21129f955 = L.circle(
+                [66.5032098, 25.7162283],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_65748d0cc70a045ef8c12de21129f955.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_be71da6cdf0d8e698f2e2e1af3e1c96e = L.circle(
+                [66.4977864, 25.7209208],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_be71da6cdf0d8e698f2e2e1af3e1c96e.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_3f56d3d8aab00a3fa6b314baef960ec4 = L.circle(
+                [66.4969013, 25.7234669],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_3f56d3d8aab00a3fa6b314baef960ec4.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9b7ddc3610e198103b5e129a70e3168b = L.circle(
+                [66.4970432, 25.7223645],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_9b7ddc3610e198103b5e129a70e3168b.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_b68ba2d611ea9e3bb624b9ff43c3912e = L.circle(
+                [66.4974495, 25.7229953],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_b68ba2d611ea9e3bb624b9ff43c3912e.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_86b8f45b832c59f00043aa269c536b57 = L.circle(
+                [66.4969221, 25.722361],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_86b8f45b832c59f00043aa269c536b57.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_b8845170d27fb9aeef4c29bb5bfa0844 = L.circle(
+                [66.495059, 25.7342834],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_b8845170d27fb9aeef4c29bb5bfa0844.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_eb992e131045d9aac537ca4640635707 = L.circle(
+                [66.4934948, 25.7345853],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_eb992e131045d9aac537ca4640635707.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_6b7fee97a7e13fc84ba635d759493821 = L.circle(
+                [66.4935741, 25.7273331],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_6b7fee97a7e13fc84ba635d759493821.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8878247c1b779d0ef70ca713b9e88584 = L.circle(
+                [66.4968727, 25.7232498],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_8878247c1b779d0ef70ca713b9e88584.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_38451365e373b6a29bf9f364f6702b3e = L.circle(
+                [66.4967306, 25.734017],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_38451365e373b6a29bf9f364f6702b3e.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_f364d23d751f9d5108db930e0dfe09fd = L.circle(
+                [66.4943294, 25.7345403],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_f364d23d751f9d5108db930e0dfe09fd.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_59092b6f7f14157448ee211f5f402855 = L.circle(
+                [66.4926426, 25.733957],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_59092b6f7f14157448ee211f5f402855.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_793226112f38c496119ea1e511a087df = L.circle(
+                [66.4934238, 25.7272875],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.18, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150.0, "stroke": true, "weight": 1.2}
+            ).addTo(feature_group_7bab9a8a321c5f6bed3cb763375a5eee);
+        
+    
+            circle_793226112f38c496119ea1e511a087df.bindTooltip(
+                `<div>
+                     Safe zone (150.0m radius)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_7bab9a8a321c5f6bed3cb763375a5eee.addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+        
+    
+            var feature_group_2486176a04ef08a7a581938b0015c86b = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_1aabed3c88a17930724bce281cb782cf = L.circleMarker(
+                [66.5021657, 25.7384392],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_74b3d5b184783976fca928bc36a5a7f6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_917904c9842e41185157cf4b5f7cd295 = $(`<div id="html_917904c9842e41185157cf4b5f7cd295" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_74b3d5b184783976fca928bc36a5a7f6.setContent(html_917904c9842e41185157cf4b5f7cd295);
+            
+        
+
+        circle_marker_1aabed3c88a17930724bce281cb782cf.bindPopup(popup_74b3d5b184783976fca928bc36a5a7f6)
+        ;
+
+        
+    
+    
+            circle_marker_1aabed3c88a17930724bce281cb782cf.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a02a03b0f511814287c3914958c0f293 = L.circleMarker(
+                [66.5029614, 25.7382681],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_fc93f3eea3b1f569a427d3a2987b6ec3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5f478749dc65324340a53d1f70ad4ff7 = $(`<div id="html_5f478749dc65324340a53d1f70ad4ff7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_fc93f3eea3b1f569a427d3a2987b6ec3.setContent(html_5f478749dc65324340a53d1f70ad4ff7);
+            
+        
+
+        circle_marker_a02a03b0f511814287c3914958c0f293.bindPopup(popup_fc93f3eea3b1f569a427d3a2987b6ec3)
+        ;
+
+        
+    
+    
+            circle_marker_a02a03b0f511814287c3914958c0f293.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_17369ec8fc1a376c31ba4e67a5422b68 = L.circleMarker(
+                [66.5021864, 25.7384587],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_b7dc10abf53a531564e73887c8559ecf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c657c224d076cf024d1e839c3e01a434 = $(`<div id="html_c657c224d076cf024d1e839c3e01a434" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_b7dc10abf53a531564e73887c8559ecf.setContent(html_c657c224d076cf024d1e839c3e01a434);
+            
+        
+
+        circle_marker_17369ec8fc1a376c31ba4e67a5422b68.bindPopup(popup_b7dc10abf53a531564e73887c8559ecf)
+        ;
+
+        
+    
+    
+            circle_marker_17369ec8fc1a376c31ba4e67a5422b68.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_75205f25c22b924377a5f30bac1dceb3 = L.circleMarker(
+                [66.5029535, 25.7382058],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_b2285444a968093a929ce47486a843c3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_994f3b9f26a4cbc3f973aed9f4b420f8 = $(`<div id="html_994f3b9f26a4cbc3f973aed9f4b420f8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_b2285444a968093a929ce47486a843c3.setContent(html_994f3b9f26a4cbc3f973aed9f4b420f8);
+            
+        
+
+        circle_marker_75205f25c22b924377a5f30bac1dceb3.bindPopup(popup_b2285444a968093a929ce47486a843c3)
+        ;
+
+        
+    
+    
+            circle_marker_75205f25c22b924377a5f30bac1dceb3.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ad05669ac5c1bcfcdae4c5ac6f760a0 = L.circleMarker(
+                [66.502495, 25.738732],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_466e74a9fbe8f9c82defbbd418d5ba98 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3449b38daa0d3cda221f75bcba63e9a1 = $(`<div id="html_3449b38daa0d3cda221f75bcba63e9a1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_466e74a9fbe8f9c82defbbd418d5ba98.setContent(html_3449b38daa0d3cda221f75bcba63e9a1);
+            
+        
+
+        circle_marker_5ad05669ac5c1bcfcdae4c5ac6f760a0.bindPopup(popup_466e74a9fbe8f9c82defbbd418d5ba98)
+        ;
+
+        
+    
+    
+            circle_marker_5ad05669ac5c1bcfcdae4c5ac6f760a0.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8a1388543b12ab791c77882c65066a3a = L.circleMarker(
+                [66.5025137, 25.7387507],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_9d4fadf9fba3c2a4819af2c5e6a0ceb1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_917c1bba1349aebdcb54f012194813a8 = $(`<div id="html_917c1bba1349aebdcb54f012194813a8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_9d4fadf9fba3c2a4819af2c5e6a0ceb1.setContent(html_917c1bba1349aebdcb54f012194813a8);
+            
+        
+
+        circle_marker_8a1388543b12ab791c77882c65066a3a.bindPopup(popup_9d4fadf9fba3c2a4819af2c5e6a0ceb1)
+        ;
+
+        
+    
+    
+            circle_marker_8a1388543b12ab791c77882c65066a3a.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7a29211d662ccb2a4f1b03c5fd352b6a = L.circleMarker(
+                [66.5029146, 25.7391127],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_2b235082ea57f623827b6ce29f07fe98 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_41bc7b5484c93bca0bddd9c4855fcbc1 = $(`<div id="html_41bc7b5484c93bca0bddd9c4855fcbc1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_2b235082ea57f623827b6ce29f07fe98.setContent(html_41bc7b5484c93bca0bddd9c4855fcbc1);
+            
+        
+
+        circle_marker_7a29211d662ccb2a4f1b03c5fd352b6a.bindPopup(popup_2b235082ea57f623827b6ce29f07fe98)
+        ;
+
+        
+    
+    
+            circle_marker_7a29211d662ccb2a4f1b03c5fd352b6a.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_20cc3fd78be6db01cf3a8ddc45c149b9 = L.circleMarker(
+                [66.5029338, 25.7391309],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_6b5af348fbf7790d97b6c05a2bcc35ac = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6c7f0b85ed65b65bd8cc7f5d1bcaf202 = $(`<div id="html_6c7f0b85ed65b65bd8cc7f5d1bcaf202" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_6b5af348fbf7790d97b6c05a2bcc35ac.setContent(html_6c7f0b85ed65b65bd8cc7f5d1bcaf202);
+            
+        
+
+        circle_marker_20cc3fd78be6db01cf3a8ddc45c149b9.bindPopup(popup_6b5af348fbf7790d97b6c05a2bcc35ac)
+        ;
+
+        
+    
+    
+            circle_marker_20cc3fd78be6db01cf3a8ddc45c149b9.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1e6d318471e10d32481d159ce6bc362 = L.circleMarker(
+                [66.5009445, 25.7373556],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_5c3316d5acf1478686d185d55a26c192 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7f9ff51c0fa32992a96063d49340ab4f = $(`<div id="html_7f9ff51c0fa32992a96063d49340ab4f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_5c3316d5acf1478686d185d55a26c192.setContent(html_7f9ff51c0fa32992a96063d49340ab4f);
+            
+        
+
+        circle_marker_e1e6d318471e10d32481d159ce6bc362.bindPopup(popup_5c3316d5acf1478686d185d55a26c192)
+        ;
+
+        
+    
+    
+            circle_marker_e1e6d318471e10d32481d159ce6bc362.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_573244912ab3463cae25ba8f24da04e1 = L.circleMarker(
+                [66.5006416, 25.7371105],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_315cb51b1b9a7da359cd29182601b7bf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_27d020ffe965a0c3975a417b56799c21 = $(`<div id="html_27d020ffe965a0c3975a417b56799c21" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_315cb51b1b9a7da359cd29182601b7bf.setContent(html_27d020ffe965a0c3975a417b56799c21);
+            
+        
+
+        circle_marker_573244912ab3463cae25ba8f24da04e1.bindPopup(popup_315cb51b1b9a7da359cd29182601b7bf)
+        ;
+
+        
+    
+    
+            circle_marker_573244912ab3463cae25ba8f24da04e1.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_28582d3457bbcf7cd7bbf34b72687aa0 = L.circleMarker(
+                [66.5009665, 25.7373753],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_5ef1edd69b47bd51a6dcad874b7bee5e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_87103be6812c084a61f952fa41ade5fc = $(`<div id="html_87103be6812c084a61f952fa41ade5fc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_5ef1edd69b47bd51a6dcad874b7bee5e.setContent(html_87103be6812c084a61f952fa41ade5fc);
+            
+        
+
+        circle_marker_28582d3457bbcf7cd7bbf34b72687aa0.bindPopup(popup_5ef1edd69b47bd51a6dcad874b7bee5e)
+        ;
+
+        
+    
+    
+            circle_marker_28582d3457bbcf7cd7bbf34b72687aa0.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_672ce5c703206a4e3fa69fe1a493b84d = L.circleMarker(
+                [66.5006216, 25.7370935],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_5978550853ee53587192bc8c50c034e9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0185d014b166f98f463563a16b68f926 = $(`<div id="html_0185d014b166f98f463563a16b68f926" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_5978550853ee53587192bc8c50c034e9.setContent(html_0185d014b166f98f463563a16b68f926);
+            
+        
+
+        circle_marker_672ce5c703206a4e3fa69fe1a493b84d.bindPopup(popup_5978550853ee53587192bc8c50c034e9)
+        ;
+
+        
+    
+    
+            circle_marker_672ce5c703206a4e3fa69fe1a493b84d.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b08fadd64cf61816b37218ad552116b2 = L.circleMarker(
+                [66.4998069, 25.7364373],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_776c803d5614905b449bf2436c548f85 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bc6adb3e4bae38d5bbfc6c467ced8ba5 = $(`<div id="html_bc6adb3e4bae38d5bbfc6c467ced8ba5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_776c803d5614905b449bf2436c548f85.setContent(html_bc6adb3e4bae38d5bbfc6c467ced8ba5);
+            
+        
+
+        circle_marker_b08fadd64cf61816b37218ad552116b2.bindPopup(popup_776c803d5614905b449bf2436c548f85)
+        ;
+
+        
+    
+    
+            circle_marker_b08fadd64cf61816b37218ad552116b2.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_88378000c8d427c97aa4ebe2ec642617 = L.circleMarker(
+                [66.4998292, 25.7364564],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_6ba87484500eb57227038e07aa33f39f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f47d63e0c6b2dcea8415b4d2fc5c0013 = $(`<div id="html_f47d63e0c6b2dcea8415b4d2fc5c0013" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_6ba87484500eb57227038e07aa33f39f.setContent(html_f47d63e0c6b2dcea8415b4d2fc5c0013);
+            
+        
+
+        circle_marker_88378000c8d427c97aa4ebe2ec642617.bindPopup(popup_6ba87484500eb57227038e07aa33f39f)
+        ;
+
+        
+    
+    
+            circle_marker_88378000c8d427c97aa4ebe2ec642617.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de4cd044a2432d62ac29e04314a2060f = L.circleMarker(
+                [66.5001348, 25.7439264],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_4608a02670b42953c59ca0a2f78e6171 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a08fc6be2118e17b42bf6443364fc460 = $(`<div id="html_a08fc6be2118e17b42bf6443364fc460" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_4608a02670b42953c59ca0a2f78e6171.setContent(html_a08fc6be2118e17b42bf6443364fc460);
+            
+        
+
+        circle_marker_de4cd044a2432d62ac29e04314a2060f.bindPopup(popup_4608a02670b42953c59ca0a2f78e6171)
+        ;
+
+        
+    
+    
+            circle_marker_de4cd044a2432d62ac29e04314a2060f.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_35c1fda4b01c5ae0f190e37c3ccef416 = L.circleMarker(
+                [66.5005638, 25.7440896],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_372970062fd0453cf0659adf99013450 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b4db949435f3729246e29b6772fdef06 = $(`<div id="html_b4db949435f3729246e29b6772fdef06" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_372970062fd0453cf0659adf99013450.setContent(html_b4db949435f3729246e29b6772fdef06);
+            
+        
+
+        circle_marker_35c1fda4b01c5ae0f190e37c3ccef416.bindPopup(popup_372970062fd0453cf0659adf99013450)
+        ;
+
+        
+    
+    
+            circle_marker_35c1fda4b01c5ae0f190e37c3ccef416.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6cdb68b3b373f5874aa15475d9cfd048 = L.circleMarker(
+                [66.4916369, 25.7500573],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_c9d79e607716835ca29688743408cafd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_106af4dded369f108ed7f303f338d329 = $(`<div id="html_106af4dded369f108ed7f303f338d329" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_c9d79e607716835ca29688743408cafd.setContent(html_106af4dded369f108ed7f303f338d329);
+            
+        
+
+        circle_marker_6cdb68b3b373f5874aa15475d9cfd048.bindPopup(popup_c9d79e607716835ca29688743408cafd)
+        ;
+
+        
+    
+    
+            circle_marker_6cdb68b3b373f5874aa15475d9cfd048.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0feb8ba14c84c89ca448e2e445035593 = L.circleMarker(
+                [66.4916337, 25.7500037],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_d0456f3c61d2289b1ec287debc2dc277 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cb004f68a09f6bfa0b7b306830157a93 = $(`<div id="html_cb004f68a09f6bfa0b7b306830157a93" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_d0456f3c61d2289b1ec287debc2dc277.setContent(html_cb004f68a09f6bfa0b7b306830157a93);
+            
+        
+
+        circle_marker_0feb8ba14c84c89ca448e2e445035593.bindPopup(popup_d0456f3c61d2289b1ec287debc2dc277)
+        ;
+
+        
+    
+    
+            circle_marker_0feb8ba14c84c89ca448e2e445035593.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_512a3bc2ef58cebb41c0ae147116786b = L.circleMarker(
+                [66.5173069, 25.7346092],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_9b0f0852b483e3854865e958f9ba7049 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_31d2b50886d77ae3c21240c7f478ddcf = $(`<div id="html_31d2b50886d77ae3c21240c7f478ddcf" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_9b0f0852b483e3854865e958f9ba7049.setContent(html_31d2b50886d77ae3c21240c7f478ddcf);
+            
+        
+
+        circle_marker_512a3bc2ef58cebb41c0ae147116786b.bindPopup(popup_9b0f0852b483e3854865e958f9ba7049)
+        ;
+
+        
+    
+    
+            circle_marker_512a3bc2ef58cebb41c0ae147116786b.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_984f2c43cad7bd409dc2568c88762439 = L.circleMarker(
+                [66.4994387, 25.7361527],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_4c90c89b0ea91b6fc1fe6dec73213ab3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c5d9e1d3be4903d6134494115fcc09c0 = $(`<div id="html_c5d9e1d3be4903d6134494115fcc09c0" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_4c90c89b0ea91b6fc1fe6dec73213ab3.setContent(html_c5d9e1d3be4903d6134494115fcc09c0);
+            
+        
+
+        circle_marker_984f2c43cad7bd409dc2568c88762439.bindPopup(popup_4c90c89b0ea91b6fc1fe6dec73213ab3)
+        ;
+
+        
+    
+    
+            circle_marker_984f2c43cad7bd409dc2568c88762439.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_55973324435b388cae12e947232bc88e = L.circleMarker(
+                [66.4990787, 25.7358779],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_d1310e3751d0313dd723d741ffe29f18 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2c18a27801f0ca61ccdf342e49e6c334 = $(`<div id="html_2c18a27801f0ca61ccdf342e49e6c334" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_d1310e3751d0313dd723d741ffe29f18.setContent(html_2c18a27801f0ca61ccdf342e49e6c334);
+            
+        
+
+        circle_marker_55973324435b388cae12e947232bc88e.bindPopup(popup_d1310e3751d0313dd723d741ffe29f18)
+        ;
+
+        
+    
+    
+            circle_marker_55973324435b388cae12e947232bc88e.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7d06114a7e1a224657ea7fb848b82411 = L.circleMarker(
+                [66.4990546, 25.7358602],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_42f352543ee2ec8ff8cefd2a26b5b1dd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5cece7a679735dff762aa5be34f5e441 = $(`<div id="html_5cece7a679735dff762aa5be34f5e441" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_42f352543ee2ec8ff8cefd2a26b5b1dd.setContent(html_5cece7a679735dff762aa5be34f5e441);
+            
+        
+
+        circle_marker_7d06114a7e1a224657ea7fb848b82411.bindPopup(popup_42f352543ee2ec8ff8cefd2a26b5b1dd)
+        ;
+
+        
+    
+    
+            circle_marker_7d06114a7e1a224657ea7fb848b82411.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_97a615ff8895688894aeb6bf0805a6dd = L.circleMarker(
+                [66.4994619, 25.7361656],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_3b730cc6a54d38cc348822858255397d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7b6909d3e01097e9f170d1f0c620b16a = $(`<div id="html_7b6909d3e01097e9f170d1f0c620b16a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_3b730cc6a54d38cc348822858255397d.setContent(html_7b6909d3e01097e9f170d1f0c620b16a);
+            
+        
+
+        circle_marker_97a615ff8895688894aeb6bf0805a6dd.bindPopup(popup_3b730cc6a54d38cc348822858255397d)
+        ;
+
+        
+    
+    
+            circle_marker_97a615ff8895688894aeb6bf0805a6dd.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1f67f81a08a93f38e293a9d3b508d69b = L.circleMarker(
+                [66.4976872, 25.7347446],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_506efbdda7917dc1bfd6331735d152ae = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_24018f0955242e5d5bee17b448df7128 = $(`<div id="html_24018f0955242e5d5bee17b448df7128" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_506efbdda7917dc1bfd6331735d152ae.setContent(html_24018f0955242e5d5bee17b448df7128);
+            
+        
+
+        circle_marker_1f67f81a08a93f38e293a9d3b508d69b.bindPopup(popup_506efbdda7917dc1bfd6331735d152ae)
+        ;
+
+        
+    
+    
+            circle_marker_1f67f81a08a93f38e293a9d3b508d69b.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d57203b3c26ccf582d407be513d9b74 = L.circleMarker(
+                [66.498663, 25.7355601],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_7e028e9f05b40255dd8b3f862c1b1f17 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_983a302840280c52b91b9d17bc5bc326 = $(`<div id="html_983a302840280c52b91b9d17bc5bc326" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_7e028e9f05b40255dd8b3f862c1b1f17.setContent(html_983a302840280c52b91b9d17bc5bc326);
+            
+        
+
+        circle_marker_4d57203b3c26ccf582d407be513d9b74.bindPopup(popup_7e028e9f05b40255dd8b3f862c1b1f17)
+        ;
+
+        
+    
+    
+            circle_marker_4d57203b3c26ccf582d407be513d9b74.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9529acc8652f8ebe51ad1e187db1ab1b = L.circleMarker(
+                [66.4986318, 25.7355371],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_01c953706de60cdc8477c05ffbaec674 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7f7424957e38e2ff8d25d961f5521615 = $(`<div id="html_7f7424957e38e2ff8d25d961f5521615" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_01c953706de60cdc8477c05ffbaec674.setContent(html_7f7424957e38e2ff8d25d961f5521615);
+            
+        
+
+        circle_marker_9529acc8652f8ebe51ad1e187db1ab1b.bindPopup(popup_01c953706de60cdc8477c05ffbaec674)
+        ;
+
+        
+    
+    
+            circle_marker_9529acc8652f8ebe51ad1e187db1ab1b.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2be92fabe15a110982e1fad1d243bb0 = L.circleMarker(
+                [66.4983313, 25.7352849],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_56ee96150c998eca6d1edee949115e26 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e0d9606093535080c47faf50ed58f1b9 = $(`<div id="html_e0d9606093535080c47faf50ed58f1b9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_56ee96150c998eca6d1edee949115e26.setContent(html_e0d9606093535080c47faf50ed58f1b9);
+            
+        
+
+        circle_marker_e2be92fabe15a110982e1fad1d243bb0.bindPopup(popup_56ee96150c998eca6d1edee949115e26)
+        ;
+
+        
+    
+    
+            circle_marker_e2be92fabe15a110982e1fad1d243bb0.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_626c4b33bb85318a189e67507ac8ed54 = L.circleMarker(
+                [66.4983044, 25.7352641],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_543b396085f1a94bcfd83edd5140e987 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5373c57cc92f69ce1e062b9eed534ca5 = $(`<div id="html_5373c57cc92f69ce1e062b9eed534ca5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_543b396085f1a94bcfd83edd5140e987.setContent(html_5373c57cc92f69ce1e062b9eed534ca5);
+            
+        
+
+        circle_marker_626c4b33bb85318a189e67507ac8ed54.bindPopup(popup_543b396085f1a94bcfd83edd5140e987)
+        ;
+
+        
+    
+    
+            circle_marker_626c4b33bb85318a189e67507ac8ed54.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_202dd92969b804269b92a1c76e5a9b44 = L.circleMarker(
+                [66.4970416, 25.7342454],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_c8921a734d27ed1dcaeede69db100982 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dd0bc34120353765b74ec79bd2bba08b = $(`<div id="html_dd0bc34120353765b74ec79bd2bba08b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_c8921a734d27ed1dcaeede69db100982.setContent(html_dd0bc34120353765b74ec79bd2bba08b);
+            
+        
+
+        circle_marker_202dd92969b804269b92a1c76e5a9b44.bindPopup(popup_c8921a734d27ed1dcaeede69db100982)
+        ;
+
+        
+    
+    
+            circle_marker_202dd92969b804269b92a1c76e5a9b44.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8be6f0f77bc189a5413dad35c5f36777 = L.circleMarker(
+                [66.4977122, 25.7347575],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_88b45ab2256cd66db427818ecbb4784e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fead1bf3d0b0793462e3731cd0b4459a = $(`<div id="html_fead1bf3d0b0793462e3731cd0b4459a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_88b45ab2256cd66db427818ecbb4784e.setContent(html_fead1bf3d0b0793462e3731cd0b4459a);
+            
+        
+
+        circle_marker_8be6f0f77bc189a5413dad35c5f36777.bindPopup(popup_88b45ab2256cd66db427818ecbb4784e)
+        ;
+
+        
+    
+    
+            circle_marker_8be6f0f77bc189a5413dad35c5f36777.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_06ada9b7aa11645dab4e3ba9eb1cf62e = L.circleMarker(
+                [66.4973669, 25.7345044],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_aaa5882bdbaabb5a03ef4be0e48023c7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2ef3cf873624c55901333c8d96fca67b = $(`<div id="html_2ef3cf873624c55901333c8d96fca67b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_aaa5882bdbaabb5a03ef4be0e48023c7.setContent(html_2ef3cf873624c55901333c8d96fca67b);
+            
+        
+
+        circle_marker_06ada9b7aa11645dab4e3ba9eb1cf62e.bindPopup(popup_aaa5882bdbaabb5a03ef4be0e48023c7)
+        ;
+
+        
+    
+    
+            circle_marker_06ada9b7aa11645dab4e3ba9eb1cf62e.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c10f4fcf7b504ebab5797bf900e7e87 = L.circleMarker(
+                [66.4970123, 25.734226],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_1e85e36b4b9fcb91e6c8e6aad9ee508a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_97021d000549c88f28cd84ffe78a9e6a = $(`<div id="html_97021d000549c88f28cd84ffe78a9e6a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_1e85e36b4b9fcb91e6c8e6aad9ee508a.setContent(html_97021d000549c88f28cd84ffe78a9e6a);
+            
+        
+
+        circle_marker_6c10f4fcf7b504ebab5797bf900e7e87.bindPopup(popup_1e85e36b4b9fcb91e6c8e6aad9ee508a)
+        ;
+
+        
+    
+    
+            circle_marker_6c10f4fcf7b504ebab5797bf900e7e87.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8eff41259c4b2e18c3f202bec67223cc = L.circleMarker(
+                [66.4973906, 25.7345183],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_1830aaed51c7901ff73b780ed2c46ce9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2d5b6ea2feb423622e066119c680e6ee = $(`<div id="html_2d5b6ea2feb423622e066119c680e6ee" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_1830aaed51c7901ff73b780ed2c46ce9.setContent(html_2d5b6ea2feb423622e066119c680e6ee);
+            
+        
+
+        circle_marker_8eff41259c4b2e18c3f202bec67223cc.bindPopup(popup_1830aaed51c7901ff73b780ed2c46ce9)
+        ;
+
+        
+    
+    
+            circle_marker_8eff41259c4b2e18c3f202bec67223cc.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4c7f85029914e144f5abce5bd1faf18f = L.circleMarker(
+                [66.5022136, 25.7666348],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_bb0e769b9a054f3a8e1d17cb58a16a5c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_810bc4c5d0cd13341d00b69748fc730d = $(`<div id="html_810bc4c5d0cd13341d00b69748fc730d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes<br><b>Material:</b> Wood</div></div></div>`)[0];
+                popup_bb0e769b9a054f3a8e1d17cb58a16a5c.setContent(html_810bc4c5d0cd13341d00b69748fc730d);
+            
+        
+
+        circle_marker_4c7f85029914e144f5abce5bd1faf18f.bindPopup(popup_bb0e769b9a054f3a8e1d17cb58a16a5c)
+        ;
+
+        
+    
+    
+            circle_marker_4c7f85029914e144f5abce5bd1faf18f.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ca5ddd5fd49c0ef93be6197d2fa71ae9 = L.circleMarker(
+                [66.5046633, 25.7218928],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_1757510d86479d47bcc08cbf25f3808c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d76a9805f02379918640339eb719f977 = $(`<div id="html_d76a9805f02379918640339eb719f977" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_1757510d86479d47bcc08cbf25f3808c.setContent(html_d76a9805f02379918640339eb719f977);
+            
+        
+
+        circle_marker_ca5ddd5fd49c0ef93be6197d2fa71ae9.bindPopup(popup_1757510d86479d47bcc08cbf25f3808c)
+        ;
+
+        
+    
+    
+            circle_marker_ca5ddd5fd49c0ef93be6197d2fa71ae9.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da31229214c4ddbeafcac03e5765c163 = L.circleMarker(
+                [66.5118633, 25.7207386],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_1d75de444dd26a84b02a539bae5660b6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_08732fae94907dab6c27a63e2d026010 = $(`<div id="html_08732fae94907dab6c27a63e2d026010" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_1d75de444dd26a84b02a539bae5660b6.setContent(html_08732fae94907dab6c27a63e2d026010);
+            
+        
+
+        circle_marker_da31229214c4ddbeafcac03e5765c163.bindPopup(popup_1d75de444dd26a84b02a539bae5660b6)
+        ;
+
+        
+    
+    
+            circle_marker_da31229214c4ddbeafcac03e5765c163.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_629ae4802f9464662329e742ce319577 = L.circleMarker(
+                [66.5088677, 25.7306304],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_00002e43beedf1480f497081c11a1ba7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c63514d82622a3db6fb4c2f09d917618 = $(`<div id="html_c63514d82622a3db6fb4c2f09d917618" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> No</div></div></div>`)[0];
+                popup_00002e43beedf1480f497081c11a1ba7.setContent(html_c63514d82622a3db6fb4c2f09d917618);
+            
+        
+
+        circle_marker_629ae4802f9464662329e742ce319577.bindPopup(popup_00002e43beedf1480f497081c11a1ba7)
+        ;
+
+        
+    
+    
+            circle_marker_629ae4802f9464662329e742ce319577.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_40e60da77d9535bc72d0b342b8afdd52 = L.circleMarker(
+                [66.5089307, 25.7293928],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_41a17b4d1b5198b6217149281c7d7a59 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e04c3718ec6ccbd575e322b1ab41bd05 = $(`<div id="html_e04c3718ec6ccbd575e322b1ab41bd05" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> No</div></div></div>`)[0];
+                popup_41a17b4d1b5198b6217149281c7d7a59.setContent(html_e04c3718ec6ccbd575e322b1ab41bd05);
+            
+        
+
+        circle_marker_40e60da77d9535bc72d0b342b8afdd52.bindPopup(popup_41a17b4d1b5198b6217149281c7d7a59)
+        ;
+
+        
+    
+    
+            circle_marker_40e60da77d9535bc72d0b342b8afdd52.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b6de22b6758ea659c53fbb3bce09308a = L.circleMarker(
+                [66.5092779, 25.7265471],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_2709af4ac71cff0ece1f3d66a181c8d2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_baae2ecfae5545d51f644ee2c26b6002 = $(`<div id="html_baae2ecfae5545d51f644ee2c26b6002" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> No</div></div></div>`)[0];
+                popup_2709af4ac71cff0ece1f3d66a181c8d2.setContent(html_baae2ecfae5545d51f644ee2c26b6002);
+            
+        
+
+        circle_marker_b6de22b6758ea659c53fbb3bce09308a.bindPopup(popup_2709af4ac71cff0ece1f3d66a181c8d2)
+        ;
+
+        
+    
+    
+            circle_marker_b6de22b6758ea659c53fbb3bce09308a.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de3a9c0185208b8a8a2f2f65c32135a4 = L.circleMarker(
+                [66.5025956, 25.7559858],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_f7db2b79432d9a9a28b00505647fbabb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a4fe8b8d716395da288835e6b50fcf2f = $(`<div id="html_a4fe8b8d716395da288835e6b50fcf2f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes<br><b>Material:</b> Wood</div></div></div>`)[0];
+                popup_f7db2b79432d9a9a28b00505647fbabb.setContent(html_a4fe8b8d716395da288835e6b50fcf2f);
+            
+        
+
+        circle_marker_de3a9c0185208b8a8a2f2f65c32135a4.bindPopup(popup_f7db2b79432d9a9a28b00505647fbabb)
+        ;
+
+        
+    
+    
+            circle_marker_de3a9c0185208b8a8a2f2f65c32135a4.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1f7bd8331813cbb1ff764ddb5869d1c6 = L.circleMarker(
+                [66.5014992, 25.7517561],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_2eecc622369cb622712df8d9491b7a0c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0b6d770e03be67f2d979a487229a773b = $(`<div id="html_0b6d770e03be67f2d979a487229a773b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_2eecc622369cb622712df8d9491b7a0c.setContent(html_0b6d770e03be67f2d979a487229a773b);
+            
+        
+
+        circle_marker_1f7bd8331813cbb1ff764ddb5869d1c6.bindPopup(popup_2eecc622369cb622712df8d9491b7a0c)
+        ;
+
+        
+    
+    
+            circle_marker_1f7bd8331813cbb1ff764ddb5869d1c6.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e786f414fe61f64ea3d39d88b676c40e = L.circleMarker(
+                [66.5022602, 25.7598681],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_8bfec7a942ebeb6f52bb363af35cfaf9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5a3c9e558338a5a6d9c5b6cd4e19b785 = $(`<div id="html_5a3c9e558338a5a6d9c5b6cd4e19b785" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='margin-top: 5px;'><b>Backrest:</b> Yes</div></div></div>`)[0];
+                popup_8bfec7a942ebeb6f52bb363af35cfaf9.setContent(html_5a3c9e558338a5a6d9c5b6cd4e19b785);
+            
+        
+
+        circle_marker_e786f414fe61f64ea3d39d88b676c40e.bindPopup(popup_8bfec7a942ebeb6f52bb363af35cfaf9)
+        ;
+
+        
+    
+    
+            circle_marker_e786f414fe61f64ea3d39d88b676c40e.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_596f429b1a5947faa86a1a47e2a79e98 = L.circleMarker(
+                [66.5032098, 25.7162283],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_cdc0941a13b844039a6eeebd0acc8d4b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d0c8b65cffc6faad1e3dde179f2038be = $(`<div id="html_d0c8b65cffc6faad1e3dde179f2038be" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_cdc0941a13b844039a6eeebd0acc8d4b.setContent(html_d0c8b65cffc6faad1e3dde179f2038be);
+            
+        
+
+        circle_marker_596f429b1a5947faa86a1a47e2a79e98.bindPopup(popup_cdc0941a13b844039a6eeebd0acc8d4b)
+        ;
+
+        
+    
+    
+            circle_marker_596f429b1a5947faa86a1a47e2a79e98.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26d7abd17bdf1f41afc4048d842d878b = L.circleMarker(
+                [66.4977864, 25.7209208],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_afde11feb2e994865f158a36d9ab4e09 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8f9655e249dce5c2f25bb3fa5386471c = $(`<div id="html_8f9655e249dce5c2f25bb3fa5386471c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_afde11feb2e994865f158a36d9ab4e09.setContent(html_8f9655e249dce5c2f25bb3fa5386471c);
+            
+        
+
+        circle_marker_26d7abd17bdf1f41afc4048d842d878b.bindPopup(popup_afde11feb2e994865f158a36d9ab4e09)
+        ;
+
+        
+    
+    
+            circle_marker_26d7abd17bdf1f41afc4048d842d878b.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_824d030adfd57494c6c5777321a59f51 = L.circleMarker(
+                [66.4969013, 25.7234669],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_cfa4ff3e8a0a8b8847fd6a2bbf2fbd52 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_969324f8cda9ebddd940eb1e7e50be19 = $(`<div id="html_969324f8cda9ebddd940eb1e7e50be19" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_cfa4ff3e8a0a8b8847fd6a2bbf2fbd52.setContent(html_969324f8cda9ebddd940eb1e7e50be19);
+            
+        
+
+        circle_marker_824d030adfd57494c6c5777321a59f51.bindPopup(popup_cfa4ff3e8a0a8b8847fd6a2bbf2fbd52)
+        ;
+
+        
+    
+    
+            circle_marker_824d030adfd57494c6c5777321a59f51.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_604614f18f588c5288f175a7deaf1a9d = L.circleMarker(
+                [66.4970432, 25.7223645],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_be874dcb3cccd87a280f8048b1a46beb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1e0915af31b0aac72b836c409e360b3a = $(`<div id="html_1e0915af31b0aac72b836c409e360b3a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_be874dcb3cccd87a280f8048b1a46beb.setContent(html_1e0915af31b0aac72b836c409e360b3a);
+            
+        
+
+        circle_marker_604614f18f588c5288f175a7deaf1a9d.bindPopup(popup_be874dcb3cccd87a280f8048b1a46beb)
+        ;
+
+        
+    
+    
+            circle_marker_604614f18f588c5288f175a7deaf1a9d.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d7d3a4776345ed1c52d5ef86d05fd495 = L.circleMarker(
+                [66.4974495, 25.7229953],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_be0cc34a60896049acc008ec1c5842b2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b63256c66d03f7a3297d167f7fe6f1be = $(`<div id="html_b63256c66d03f7a3297d167f7fe6f1be" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_be0cc34a60896049acc008ec1c5842b2.setContent(html_b63256c66d03f7a3297d167f7fe6f1be);
+            
+        
+
+        circle_marker_d7d3a4776345ed1c52d5ef86d05fd495.bindPopup(popup_be0cc34a60896049acc008ec1c5842b2)
+        ;
+
+        
+    
+    
+            circle_marker_d7d3a4776345ed1c52d5ef86d05fd495.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_419ff81324689bbf730345171c5966f3 = L.circleMarker(
+                [66.4969221, 25.722361],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_a4cfa72463502b3dc0df363cd967003e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_abda6a5bca2a01e8ab23e674d845f87c = $(`<div id="html_abda6a5bca2a01e8ab23e674d845f87c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_a4cfa72463502b3dc0df363cd967003e.setContent(html_abda6a5bca2a01e8ab23e674d845f87c);
+            
+        
+
+        circle_marker_419ff81324689bbf730345171c5966f3.bindPopup(popup_a4cfa72463502b3dc0df363cd967003e)
+        ;
+
+        
+    
+    
+            circle_marker_419ff81324689bbf730345171c5966f3.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8ad59bea376ee0950b9c1204e130bde3 = L.circleMarker(
+                [66.495059, 25.7342834],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_c761327ff1b92e2d33128d4245bfc130 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3688a614bcfb2bf6ee59c36e3e4953ff = $(`<div id="html_3688a614bcfb2bf6ee59c36e3e4953ff" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_c761327ff1b92e2d33128d4245bfc130.setContent(html_3688a614bcfb2bf6ee59c36e3e4953ff);
+            
+        
+
+        circle_marker_8ad59bea376ee0950b9c1204e130bde3.bindPopup(popup_c761327ff1b92e2d33128d4245bfc130)
+        ;
+
+        
+    
+    
+            circle_marker_8ad59bea376ee0950b9c1204e130bde3.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_997843702c4a5c27f2f43be95fece53f = L.circleMarker(
+                [66.4934948, 25.7345853],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_3f601c774f4ca0ed0f04d4de7e64716c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_943686ad85903a90a3457ffdbe319c3f = $(`<div id="html_943686ad85903a90a3457ffdbe319c3f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_3f601c774f4ca0ed0f04d4de7e64716c.setContent(html_943686ad85903a90a3457ffdbe319c3f);
+            
+        
+
+        circle_marker_997843702c4a5c27f2f43be95fece53f.bindPopup(popup_3f601c774f4ca0ed0f04d4de7e64716c)
+        ;
+
+        
+    
+    
+            circle_marker_997843702c4a5c27f2f43be95fece53f.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4e614dd646ad1e7416a3c5510ca3a62 = L.circleMarker(
+                [66.4935741, 25.7273331],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_d5b80d96577ed2c68ae9f099b4e9377f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bbad5c0fe3126c474f5cde03397f7c56 = $(`<div id="html_bbad5c0fe3126c474f5cde03397f7c56" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_d5b80d96577ed2c68ae9f099b4e9377f.setContent(html_bbad5c0fe3126c474f5cde03397f7c56);
+            
+        
+
+        circle_marker_a4e614dd646ad1e7416a3c5510ca3a62.bindPopup(popup_d5b80d96577ed2c68ae9f099b4e9377f)
+        ;
+
+        
+    
+    
+            circle_marker_a4e614dd646ad1e7416a3c5510ca3a62.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_adcea914b58881df351dad4aa654db81 = L.circleMarker(
+                [66.4968727, 25.7232498],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_d3eb16f98a0710ce2b0fdef2bde6c453 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_eaf9f4f24d25ac094742fc87dbe4b5a7 = $(`<div id="html_eaf9f4f24d25ac094742fc87dbe4b5a7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_d3eb16f98a0710ce2b0fdef2bde6c453.setContent(html_eaf9f4f24d25ac094742fc87dbe4b5a7);
+            
+        
+
+        circle_marker_adcea914b58881df351dad4aa654db81.bindPopup(popup_d3eb16f98a0710ce2b0fdef2bde6c453)
+        ;
+
+        
+    
+    
+            circle_marker_adcea914b58881df351dad4aa654db81.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_54cae09dcfb12b142f67227f0aa5d454 = L.circleMarker(
+                [66.4967306, 25.734017],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_c750fc957cf901d6706c74659952053f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2712f4c57eb196e00d683176177db968 = $(`<div id="html_2712f4c57eb196e00d683176177db968" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_c750fc957cf901d6706c74659952053f.setContent(html_2712f4c57eb196e00d683176177db968);
+            
+        
+
+        circle_marker_54cae09dcfb12b142f67227f0aa5d454.bindPopup(popup_c750fc957cf901d6706c74659952053f)
+        ;
+
+        
+    
+    
+            circle_marker_54cae09dcfb12b142f67227f0aa5d454.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ca9084ba8b227f732a64fee5bc33eaa = L.circleMarker(
+                [66.4943294, 25.7345403],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_a3e7984b08c20fdd3faafe393bc30343 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a2ba095a2bea9e2ef9897e06c7cd75b1 = $(`<div id="html_a2ba095a2bea9e2ef9897e06c7cd75b1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_a3e7984b08c20fdd3faafe393bc30343.setContent(html_a2ba095a2bea9e2ef9897e06c7cd75b1);
+            
+        
+
+        circle_marker_5ca9084ba8b227f732a64fee5bc33eaa.bindPopup(popup_a3e7984b08c20fdd3faafe393bc30343)
+        ;
+
+        
+    
+    
+            circle_marker_5ca9084ba8b227f732a64fee5bc33eaa.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_81a45da10290363e10b5967d71efd140 = L.circleMarker(
+                [66.4926426, 25.733957],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_9cd69bb6b4109242c568728559bf6c3f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2a8dcac242855380e8b77a9e0837ed1e = $(`<div id="html_2a8dcac242855380e8b77a9e0837ed1e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_9cd69bb6b4109242c568728559bf6c3f.setContent(html_2a8dcac242855380e8b77a9e0837ed1e);
+            
+        
+
+        circle_marker_81a45da10290363e10b5967d71efd140.bindPopup(popup_9cd69bb6b4109242c568728559bf6c3f)
+        ;
+
+        
+    
+    
+            circle_marker_81a45da10290363e10b5967d71efd140.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2f05ee9068b10f22f45e157404af283f = L.circleMarker(
+                [66.4934238, 25.7272875],
+                {"bubblingMouseEvents": true, "color": "#1b4f72", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2486176a04ef08a7a581938b0015c86b);
+        
+    
+        var popup_59eb729f2bcdea9ae627f72b5cb5e55e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d1d488c05b35f06ac8fa964bd2f5a92a = $(`<div id="html_d1d488c05b35f06ac8fa964bd2f5a92a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.6; color: #2c3e50; min-width: 160px; max-width: 250px;">         <h4 style="margin: 0 0 6px 0; color: #1abc9c; border-bottom: 1px solid #ecf0f1; padding-bottom: 4px;">Town Bench</h4>     <div style='color: #95a5a6; font-style: italic; margin-top: 5px;'>No additional details in OSM</div></div></div>`)[0];
+                popup_59eb729f2bcdea9ae627f72b5cb5e55e.setContent(html_d1d488c05b35f06ac8fa964bd2f5a92a);
+            
+        
+
+        circle_marker_2f05ee9068b10f22f45e157404af283f.bindPopup(popup_59eb729f2bcdea9ae627f72b5cb5e55e)
+        ;
+
+        
+    
+    
+            circle_marker_2f05ee9068b10f22f45e157404af283f.bindTooltip(
+                `<div>
+                     Click for bench details
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_2486176a04ef08a7a581938b0015c86b.addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+        
+    
+            var feature_group_16d005674bc1fc6dfa001c15ec6919b2 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_3bb8a94421e7b795f7f598adc9507fb2 = L.marker(
+                [66.5025537, 25.7303912],
+                {
+}
+            ).addTo(feature_group_16d005674bc1fc6dfa001c15ec6919b2);
+        
+    
+            var icon_386d606c05f07791f28b2929e32fa2b3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c501f3cae6a6f6b2fc9871fe7a44cc4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bfb30903a80857e6195ab977f7093a4a = $(`<div id="html_bfb30903a80857e6195ab977f7093a4a" style="width: 100.0%; height: 100.0%;"><b>Search Center</b><br>Rovaniemi, Rovaniemen seutukunta, Lappi, Manner-Suomi, Suomi / Finland</div>`)[0];
+                popup_3c501f3cae6a6f6b2fc9871fe7a44cc4.setContent(html_bfb30903a80857e6195ab977f7093a4a);
+            
+        
+
+        marker_3bb8a94421e7b795f7f598adc9507fb2.bindPopup(popup_3c501f3cae6a6f6b2fc9871fe7a44cc4)
+        ;
+
+        
+    
+    
+            marker_3bb8a94421e7b795f7f598adc9507fb2.bindTooltip(
+                `<div>
+                     Search Center
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3bb8a94421e7b795f7f598adc9507fb2.setIcon(icon_386d606c05f07791f28b2929e32fa2b3);
+            
+    
+            feature_group_16d005674bc1fc6dfa001c15ec6919b2.addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+        
+    
+
+            var geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2 = {
+  "collapsed": false,
+  "position": "topright",
+  "defaultMarkGeocode": true,
+  "zoom": 11,
+  "provider": "nominatim",
+  "providerOptions": {
+},
+};
+
+            // note: geocoder name should start with lowercase
+            var geocoderName_geocoder_80d4eeb7850a7390ebf6e45f39d150b2 = geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2["provider"];
+
+            var customGeocoder_geocoder_80d4eeb7850a7390ebf6e45f39d150b2 = L.Control.Geocoder[ geocoderName_geocoder_80d4eeb7850a7390ebf6e45f39d150b2 ](
+                geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2['providerOptions']
+            );
+            geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2["geocoder"] = customGeocoder_geocoder_80d4eeb7850a7390ebf6e45f39d150b2;
+
+            L.Control.geocoder(
+                geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2
+            ).on('markgeocode', function(e) {
+                var zoom = geocoderOpts_geocoder_80d4eeb7850a7390ebf6e45f39d150b2['zoom'] || map_0b1f85c18ca84b6731101be05ab3df1a.getZoom();
+                map_0b1f85c18ca84b6731101be05ab3df1a.setView(e.geocode.center, zoom);
+            }).addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+
+        
+    
+            var locate_control_8c2238add58f1b5e812fe0dec95fec74 = L.control.locate(
+                {"circleStyle": {"color": "#2980b9", "fillColor": "#3498db", "fillOpacity": 0.15, "weight": 1}, "drawCircle": true, "keepCurrentZoomLevel": true, "markerStyle": {"color": "#2980b9", "fillColor": "#3498db"}}
+            ).addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+            
+        
+    
+            var measure_control_37a7aa34d35936a7dce958db0f2745de = new L.Control.Measure(
+                {
+  "position": "topleft",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "kilometers",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_0b1f85c18ca84b6731101be05ab3df1a.addControl(measure_control_37a7aa34d35936a7dce958db0f2745de);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            var tile_layer_dd83080dbc34ba164a96ad6ee769263a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_d2cb00a1b25a4c0b1129c84a5113fee5 = new L.Control.MiniMap(
+                tile_layer_dd83080dbc34ba164a96ad6ee769263a,
+                {
+  "position": "bottomleft",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_0b1f85c18ca84b6731101be05ab3df1a.addControl(mini_map_d2cb00a1b25a4c0b1129c84a5113fee5);
+        
+    
+            var layer_control_4504ec19f345df2e2cd15b75c819b41f_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_3beb474d0934cae1d5b3b4507cf8b602,
+                    "CartoDB Positron (Clean)" : tile_layer_08297d8f67a5d228dcc45c331a945b80,
+                    "CartoDB Dark Matter (Dark)" : tile_layer_34aa4e9aec91e19d161443d3bee986ba,
+                },
+                overlays :  {
+                    "Bench Safe Zones (150.0m)" : feature_group_7bab9a8a321c5f6bed3cb763375a5eee,
+                    "Benches Markers" : feature_group_2486176a04ef08a7a581938b0015c86b,
+                    "Search Center" : feature_group_16d005674bc1fc6dfa001c15ec6919b2,
+                },
+            };
+            let layer_control_4504ec19f345df2e2cd15b75c819b41f = L.control.layers(
+                layer_control_4504ec19f345df2e2cd15b75c819b41f_layers.base_layers,
+                layer_control_4504ec19f345df2e2cd15b75c819b41f_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_0b1f85c18ca84b6731101be05ab3df1a);
+
+        
+    
+            map_0b1f85c18ca84b6731101be05ab3df1a.fitBounds(
+                [[66.48458729009327, 25.685329648358195], [66.52052010990674, 25.775452751641804]],
+                {}
+            );
+        
+</script>
+</html>
