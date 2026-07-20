@@ -51,18 +51,18 @@ def make_card(place):
     
     return f"""
         <div class="card">
-            <div class="card-header">
+            <div class="card-body">
                 <h3>{display}</h3>
                 <p class="description">{desc}</p>
-            </div>
-            <div class="card-meta">
-                <span class="meta-item"><i class="icon-circle"></i> Radius: 150m</span>
-                <span class="meta-item"><i class="icon-square"></i> Size: 4km × 4km</span>
+                <div class="card-meta">
+                    <span class="meta-item"><span class="badge badge-radius">150m radius</span></span>
+                    <span class="meta-item"><span class="badge badge-size">4 × 4 km</span></span>
+                </div>
             </div>
             <div class="card-actions">
                 <a href="{file_base}.html" class="btn btn-html" target="_blank" title="Open interactive map in web browser">
                     <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    HTML Map
+                    Interactive Map
                 </a>
                 <a href="{file_base}.pdf" class="btn btn-pdf" target="_blank" title="Download print-ready PDF map">
                     <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V8H10c.83 0 1.5.67 1.5 1.5zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V8h2.5c.83 0 1.5.67 1.5 1.5v2zm4-3H19v1h1.5V11H19v2h-1.5V8h3v1.5zm-5 3h1c.28 0 .5-.22.5-.5v-2c0-.28-.22-.5-.5-.5h-1v3zm-5.5-3h-1v1.5h1c.28 0 .5-.22.5-.5v-.5c0-.28-.22-.5-.5-.5zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
@@ -77,7 +77,6 @@ def make_card(place):
     """
 
 def main():
-    # Build sections
     towns_html = "\n".join(make_card(t) for t in TOP_20_TOWNS)
     centers_html = "\n".join(make_card(c) for c in LOCAL_CENTERS)
     
@@ -90,22 +89,29 @@ def main():
     <title>Walk-Safety Bench Maps Directory — Esa Turtiainen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-primary: #0b132b;
-            --bg-secondary: #1c2541;
-            --bg-tertiary: rgba(28, 37, 65, 0.6);
-            --accent-primary: #5bc0be;
-            --accent-hover: #6fffe9;
-            --text-main: #f4f6fc;
-            --text-muted: #a5b4fc;
-            --border-color: rgba(91, 192, 190, 0.15);
-            --border-hover: rgba(111, 255, 233, 0.4);
+            --color-bg: #f8f6f2;          /* Warm oat/linen */
+            --color-card-bg: #ffffff;
+            --color-text-main: #24302d;    /* Deep spruce */
+            --color-text-muted: #5e6b66;   /* Sage shadow */
             
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 10px 30px rgba(0,0,0,0.5);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --color-sage: #507255;         /* Soft birch leaf */
+            --color-sage-bg: #eef3ef;
+            
+            --color-clay: #b2533e;         /* Clay / Terracotta */
+            --color-clay-bg: #faf0ed;
+            
+            --color-gold: #c28e40;         /* Nordic sunlight */
+            --color-gold-bg: #faf4e8;
+            
+            --color-border: #e2ded5;
+            --color-border-focus: #b5ad9e;
+            
+            --shadow: 0 4px 20px rgba(36, 48, 45, 0.04);
+            --shadow-hover: 0 16px 36px rgba(36, 48, 45, 0.08);
+            --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
         }}
 
         * {{
@@ -115,301 +121,270 @@ def main():
         }}
 
         body {{
-            background-color: var(--bg-primary);
-            color: var(--text-main);
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            line-height: 1.6;
+            line-height: 1.625;
             min-height: 100vh;
-            padding: 2rem 1.5rem;
+            padding: 3rem 1.5rem;
             position: relative;
-            overflow-x: hidden;
-        }}
-
-        /* Subtle glowing background decorations */
-        body::before, body::after {{
-            content: '';
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(91,192,190,0.12) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            pointer-events: none;
-        }}
-        body::before {{
-            top: -100px;
-            left: -100px;
-        }}
-        body::after {{
-            bottom: -100px;
-            right: -100px;
         }}
 
         .container {{
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }}
 
-        /* Header styling */
+        /* Header styling - Nordic minimalist layout */
         header {{
-            text-align: center;
-            margin-bottom: 4rem;
-            padding: 2rem 0;
+            margin-bottom: 5rem;
+            max-width: 760px;
             position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--color-sage);
         }}
 
         h1 {{
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            font-family: 'Lora', serif;
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--color-text-main);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.01em;
         }}
 
         .subtitle {{
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--text-muted);
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            font-weight: 300;
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            line-height: 1.7;
         }}
 
+        /* Subtle stats summary */
         .stats-bar {{
-            display: inline-flex;
-            gap: 2rem;
-            background: var(--bg-tertiary);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 0.75rem 2rem;
-            box-shadow: var(--shadow-sm);
-        }}
-
-        .stat-item {{
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem 3rem;
             font-size: 0.9rem;
-            color: var(--accent-primary);
-            font-weight: 500;
+            color: var(--color-text-muted);
+            border-top: 1px solid var(--color-border);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
         }}
 
-        .stat-val {{
-            color: var(--text-main);
-            font-weight: 700;
-            font-size: 1.1rem;
+        .stat-item strong {{
+            color: var(--color-text-main);
+            font-size: 1.05rem;
+            font-weight: 600;
         }}
 
         /* Section layout */
         section {{
-            margin-bottom: 5rem;
+            margin-bottom: 6rem;
         }}
 
         h2 {{
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--accent-primary);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.75rem;
+            align-items: baseline;
+            gap: 1rem;
+            color: var(--color-text-main);
+            position: relative;
         }}
 
         h2 span {{
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            background: rgba(91, 192, 190, 0.1);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }}
 
         /* Card grid */
         .grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
         }}
 
-        /* Card styling */
+        /* Card styling - Organic, soft, elegant look */
         .card {{
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.75rem;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition-smooth);
-            position: relative;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
         }}
 
         .card:hover {{
-            transform: translateY(-5px);
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-md), 0 0 20px rgba(111, 255, 233, 0.05);
+            transform: translateY(-4px);
+            border-color: var(--color-border-focus);
+            box-shadow: var(--shadow-hover);
         }}
 
-        .card-header h3 {{
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
+        .card-body {{
+            padding: 2.25rem 2rem 1.5rem;
+        }}
+
+        .card-body h3 {{
+            font-family: 'Lora', serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-main);
         }}
 
         .description {{
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            font-size: 0.925rem;
+            color: var(--color-text-muted);
             margin-bottom: 1.5rem;
-            font-weight: 300;
-            min-height: 44px; /* Align heights */
+            min-height: 48px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            font-weight: 400;
         }}
 
         .card-meta {{
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px dashed rgba(255, 255, 255, 0.05);
-            padding-top: 1rem;
+            gap: 0.75rem;
         }}
 
-        .meta-item {{
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+        .badge {{
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.65rem;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
         }}
 
-        .icon-circle {{
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent-primary);
-            display: inline-block;
+        .badge-radius {{
+            background-color: var(--color-sage-bg);
+            color: var(--color-sage);
         }}
 
-        .icon-square {{
-            width: 8px;
-            height: 8px;
-            background-color: #818cf8;
-            display: inline-block;
+        .badge-size {{
+            background-color: var(--color-clay-bg);
+            color: var(--color-clay);
         }}
 
-        /* Buttons and links */
+        /* Buttons & Actions */
         .card-actions {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            display: flex;
+            border-top: 1px solid var(--color-border);
+            background: #fafaf9;
         }}
 
         .btn {{
+            flex: 1;
             display: inline-flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.35rem;
-            padding: 0.6rem 0.25rem;
-            font-size: 0.75rem;
+            gap: 0.4rem;
+            padding: 1.1rem 0.5rem;
+            font-size: 0.78rem;
             font-weight: 600;
             text-decoration: none;
-            border-radius: 8px;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid var(--color-border);
+            color: var(--color-text-main);
+        }}
+
+        .btn:last-child {{
+            border-right: none;
         }}
 
         .btn svg {{
-            transition: transform 0.2s ease;
+            opacity: 0.75;
+            transition: var(--transition);
         }}
 
-        .btn:hover svg {{
-            transform: scale(1.15);
-        }}
-
-        .btn-html {{
-            background-color: rgba(91, 192, 190, 0.1);
-            color: var(--accent-primary);
-        }}
-
+        /* Clean color shifts on hover instead of generic bright buttons */
         .btn-html:hover {{
-            background-color: var(--accent-primary);
-            color: var(--bg-primary);
+            background-color: var(--color-sage-bg);
+            color: var(--color-sage);
         }}
-
-        .btn-pdf {{
-            background-color: rgba(244, 63, 94, 0.1);
-            color: #fb7185;
-            border-color: rgba(244, 63, 94, 0.15);
+        .btn-html:hover svg {{
+            color: var(--color-sage);
+            opacity: 1;
         }}
 
         .btn-pdf:hover {{
-            background-color: #f43f5e;
-            color: #ffffff;
-            border-color: #f43f5e;
+            background-color: var(--color-clay-bg);
+            color: var(--color-clay);
         }}
-
-        .btn-svg {{
-            background-color: rgba(129, 140, 248, 0.1);
-            color: #a5b4fc;
-            border-color: rgba(129, 140, 248, 0.15);
+        .btn-pdf:hover svg {{
+            color: var(--color-clay);
+            opacity: 1;
         }}
 
         .btn-svg:hover {{
-            background-color: #6366f1;
-            color: #ffffff;
-            border-color: #6366f1;
+            background-color: var(--color-gold-bg);
+            color: var(--color-gold);
+        }}
+        .btn-svg:hover svg {{
+            color: var(--color-gold);
+            opacity: 1;
         }}
 
         footer {{
-            text-align: center;
-            padding: 4rem 0 2rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            margin-top: 6rem;
+            margin-top: 8rem;
+            padding: 4rem 0 3rem;
+            border-top: 1px solid var(--color-border);
+            text-align: left;
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
         }}
 
         footer a {{
-            color: var(--accent-primary);
+            color: var(--color-text-main);
             text-decoration: none;
-            transition: var(--transition-smooth);
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--color-sage);
+            transition: var(--transition);
+            padding-bottom: 1px;
         }}
 
         footer a:hover {{
-            color: var(--accent-hover);
-            text-decoration: underline;
+            color: var(--color-sage);
+            border-bottom-color: transparent;
         }}
 
-        /* Responsive styling offsets */
         @media (max-width: 768px) {{
             body {{
-                padding: 1.5rem 1rem;
+                padding: 2rem 1.25rem;
             }}
             header {{
-                margin-bottom: 2.5rem;
+                margin-bottom: 3.5rem;
+                padding-left: 1.5rem;
             }}
             .stats-bar {{
-                flex-direction: column;
-                gap: 0.75rem;
-                border-radius: 16px;
-                padding: 1rem 2rem;
-                width: 100%;
+                gap: 1rem 2rem;
             }}
             .grid {{
                 grid-template-columns: 1fr;
+            }}
+            footer {{
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }}
         }}
     </style>
@@ -417,12 +392,12 @@ def main():
 <body>
     <div class="container">
         <header>
-            <h1>OSM Walk-Safety Bench Maps</h1>
-            <p class="subtitle">Walkable safety zones plotted within 150m of benches in public spaces, calculated using bounding box dimensions of 4km × 4km on real-time OpenStreetMap data.</p>
+            <h1>Find a Bench.<br>Take a Breath.</h1>
+            <p class="subtitle">A repository of walk-safety maps compiled from real-time OpenStreetMap data, outlining safety buffers within 150m of urban benches in 33 Finnish towns and districts.</p>
             <div class="stats-bar">
-                <div class="stat-item"><i class="icon-circle"></i> Cities Indexed: <span class="stat-val">20</span></div>
-                <div class="stat-item"><i class="icon-square"></i> Local Districts: <span class="stat-val">13</span></div>
-                <div class="stat-item"><i class="icon-circle" style="background-color: #818cf8;"></i> File Formats: <span class="stat-val">HTML, PDF, SVG</span></div>
+                <div class="stat-item">Cities: <strong>20</strong></div>
+                <div class="stat-item">Local Districts: <strong>13</strong></div>
+                <div class="stat-item">Available Formats: <strong>HTML, PDF, SVG</strong></div>
             </div>
         </header>
 
@@ -441,8 +416,12 @@ def main():
         </section>
 
         <footer>
-            <p>&copy; 2026 Esa Turtiainen. Powered by OpenStreetMap contributors, Folium, and Puppeteer.</p>
-            <p style="margin-top: 0.5rem;"><a href="https://github.com/e-t-u/bench" target="_blank">View GitHub Repository</a></p>
+            <div>
+                <p>&copy; 2026 Esa Turtiainen. OpenStreetMap data is available under the ODbL.</p>
+            </div>
+            <div>
+                <a href="https://github.com/e-t-u/bench" target="_blank">View GitHub Repository</a>
+            </div>
         </footer>
     </div>
 </body>
@@ -452,7 +431,7 @@ def main():
     output_file = os.path.join("example-maps", "index.html")
     with open(output_file, "w") as f:
         f.write(html_content)
-    print(f"✓ Premium index page successfully generated at: {output_file}")
+    print(f"✓ Premium organic index page successfully generated at: {output_file}")
 
 if __name__ == "__main__":
     main()
